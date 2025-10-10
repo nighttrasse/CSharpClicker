@@ -9,4 +9,8 @@ public class UserBoost
     public long CurrentPrice { get; set; }
 
     public int Quantity { get; set; }
+
+    public Boost Boost { get; set; }
+
+    public ApplicationUser User {get; set;}
 }

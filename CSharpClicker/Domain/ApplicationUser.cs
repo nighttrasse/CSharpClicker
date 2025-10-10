@@ -1,13 +1,9 @@
-﻿namespace CSharpClicker.Domain;
+﻿using Microsoft.AspNetCore.Identity;
 
-public class ApplicationUser
+namespace CSharpClicker.Domain;
+
+public class ApplicationUser : IdentityUser<Guid>
 {
-    public Guid Id { get; set; }
-
-    public string UserName { get; set; }
-
-    public string Password { get; set; }
-
     public long CurrentScore { get; set; }
 
     public long RecordScore { get; set; }

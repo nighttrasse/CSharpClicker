@@ -21,6 +21,7 @@ public static class DbContextInitializer
     public static string GetPathToDatabaseFile()
     {
         var pathToLocalApplicationData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        Directory.CreateDirectory(Path.Combine(pathToLocalApplicationData, "CSharpClicker"));
 
         var dbFilePath = Path.Combine(pathToLocalApplicationData, "CSharpClicker", "CSharpClicker.db");
 

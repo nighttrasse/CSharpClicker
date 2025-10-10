@@ -3,7 +3,7 @@ using CSharpClicker.Intitialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-DbContextInitializer.InitializeDbContext(builder.Services);
+ConfigureServices(builder.Services);
 
 var app = builder.Build();
 
@@ -14,6 +14,14 @@ using (var scope = app.Services.CreateScope())
     DbContextInitializer.InitializeDataBase(appDbContext);
 }
 
-app.MapGet("/", () => "Hello World!");
+app.MapDefaultControllerRoute();
 
 app.Run();
+
+void ConfigureServices(IServiceCollection services)
+{
+    IdentityInitializer.Initialize(builder.Services);
+    DbContextInitializer.InitializeDbContext(builder.Services);
+
+    services.AddControllersWithViews();
+}

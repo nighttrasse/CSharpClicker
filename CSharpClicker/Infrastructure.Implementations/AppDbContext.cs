@@ -1,9 +1,10 @@
 ﻿using CSharpClicker.Domain;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace CSharpClicker.Infrastructure.Implementations;
 
-public class AppDbContext : DbContext
+public class AppDbContext : IdentityDbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
@@ -11,16 +12,16 @@ public class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<ApplicationUser>()
-            .HasMany(u => u.UserBoosts)
-            .WithOne()
+        modelBuilder.Entity<UserBoost>()
+            .HasOne(ub => ub.User)
+            .WithMany(u => u.UserBoosts)
             .HasForeignKey(ub => ub.UserId);
-        modelBuilder.Entity<Boost>()
-            .HasMany(b => b.UserBoosts)
-            .WithOne()
+        modelBuilder.Entity<UserBoost>()
+            .HasOne(ub => ub.Boost)
+            .WithMany(u => u.UserBoosts)
             .HasForeignKey(ub => ub.BoostId);
         modelBuilder.Entity<UserBoost>()
-            .HasNoKey();
+            .HasKey(ub => new { ub.UserId, ub.BoostId });
 
         base.OnModelCreating(modelBuilder);
     }
