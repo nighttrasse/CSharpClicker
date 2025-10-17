@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CSharpClicker.Infrastructure.Implementations;
 
-public class AppDbContext : IdentityDbContext
+public class AppDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {

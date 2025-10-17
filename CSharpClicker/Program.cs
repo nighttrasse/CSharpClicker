@@ -1,5 +1,7 @@
 using CSharpClicker.Infrastructure.Implementations;
 using CSharpClicker.Intitialization;
+using MediatR;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,8 +16,12 @@ using (var scope = app.Services.CreateScope())
     DbContextInitializer.InitializeDataBase(appDbContext);
 }
 
-app.MapDefaultControllerRoute();
+app.UseAuthentication();
 
+app.MapControllers();
+app.MapDefaultControllerRoute();
+app.UseSwagger();
+app.UseSwaggerUI();
 app.Run();
 
 void ConfigureServices(IServiceCollection services)
@@ -23,5 +29,14 @@ void ConfigureServices(IServiceCollection services)
     IdentityInitializer.Initialize(builder.Services);
     DbContextInitializer.InitializeDbContext(builder.Services);
 
+    services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+        .AddCookie(o =>
+        {
+            o.LoginPath = "/auth/login";
+            o.LogoutPath = "/auth/logout";
+        });
+
+    services.AddMediatR(typeof(Program).Assembly);
+    services.AddSwaggerGen();
     services.AddControllersWithViews();
 }
