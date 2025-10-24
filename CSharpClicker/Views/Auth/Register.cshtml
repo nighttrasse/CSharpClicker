@@ -1,5 +1,16 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model RegisterViewModel
 @{
+    ViewBag.Title = "Регистрация";
 }
+
+<form class="d-flex justify-content-center align-items-center vh-100" asp-action="register" asp-controller="auth" method="post">
+    <div class="d-flex flex-column p-5 rounded light-bg">
+        <input name="username" type="text" />
+        <label for="username">Имя пользователя</label>
+        <input name="password" class="mt-2" type="password" />
+        <label for="password">Пароль</label>
+        <button type="submit" class="btn btn-info mt-2">Зарегистрироваться</button>
+        <a href="~/auth/login">Залогиниться</a>
+        <div asp-validation-summary="All"></div>
+    </div>
+</form>

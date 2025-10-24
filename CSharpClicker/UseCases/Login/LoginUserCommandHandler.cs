@@ -1,6 +1,7 @@
 ﻿using CSharpClicker.Domain;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace CSharpClicker.UseCases.Login;
 
@@ -20,7 +21,17 @@ public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, Unit>
     {
         var user = await userManager.FindByNameAsync(request.UserName);
 
-        await signInManager.PasswordSignInAsync(user, request.Password, isPersistent: true, lockoutOnFailure: false);
+        if (user == null)
+        {
+            throw new ValidationException("Пользователь с указаным ником не был найден.");
+        }
+
+        var result = await signInManager.PasswordSignInAsync(user, request.Password, isPersistent: true, lockoutOnFailure: false);
+
+        if (!result.Succeeded)
+        {
+            throw new ValidationException("Неверный пароль");
+        }
 
         return Unit.Value;
     }

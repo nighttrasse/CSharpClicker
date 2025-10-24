@@ -1,7 +1,16 @@
 ﻿@model LoginViewModel
+@{
+    ViewBag.Title = "Логин";
+}
 
-<form asp-action="login" asp-controller="auth" method="post">
-    <input name="username" type="text" />
-    <input name="password" type="password"/>
-    <button type="submit">Залогиниться</button>
+<form class="d-flex justify-content-center align-items-center vh-100" asp-action="login" asp-controller="auth" method="post">
+    <div class="d-flex flex-column p-5 rounded light-bg">
+        <input name="username" type="text" />
+        <label for="username">Имя пользователя</label>
+        <input name="password" class="mt-2" type="password" />
+        <label for="password">Пароль</label>
+        <button type="submit" class="btn btn-info mt-2">Залогиниться</button>
+        <a href="~/auth/register">Зарегистрироваться</a>
+        <div asp-validation-summary="All"></div>
+    </div>
 </form>

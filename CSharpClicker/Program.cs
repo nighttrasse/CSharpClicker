@@ -22,6 +22,7 @@ app.MapControllers();
 app.MapDefaultControllerRoute();
 app.UseSwagger();
 app.UseSwaggerUI();
+app.UseStaticFiles();
 app.Run();
 
 void ConfigureServices(IServiceCollection services)
@@ -29,12 +30,12 @@ void ConfigureServices(IServiceCollection services)
     IdentityInitializer.Initialize(builder.Services);
     DbContextInitializer.InitializeDbContext(builder.Services);
 
-    services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-        .AddCookie(o =>
-        {
-            o.LoginPath = "/auth/login";
-            o.LogoutPath = "/auth/logout";
-        });
+    services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme);
+    services.ConfigureApplicationCookie(opt =>
+    {
+        opt.LoginPath = "/auth/login";
+        opt.LogoutPath = "/auth/logout";
+    });
 
     services.AddMediatR(typeof(Program).Assembly);
     services.AddSwaggerGen();

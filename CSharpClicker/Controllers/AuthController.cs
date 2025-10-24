@@ -4,6 +4,7 @@ using CSharpClicker.UseCases.Register;
 using CSharpClicker.ViewModels;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace CSharpClicker.Controllers;
 
@@ -20,7 +21,20 @@ public class AuthController : Controller
     [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterUserCommand command)
     {
-        await mediator.Send(command);
+        try
+        {
+            await mediator.Send(command);
+        }
+        catch (ValidationException ex)
+        {
+            ModelState.AddModelError(string.Empty, ex.Message);
+            var viewModel = new RegisterViewModel()
+            {
+                UserName = command.UserName,
+            };
+
+            return View(viewModel);
+        }
 
         return RedirectToAction("Login");
     }
@@ -28,7 +42,20 @@ public class AuthController : Controller
     [HttpPost("login")]
     public async Task<IActionResult> Login(LoginUserCommand command)
     {
-        await mediator.Send(command);
+        try
+        {
+            await mediator.Send(command);
+        }
+        catch (ValidationException ex)
+        {
+            ModelState.AddModelError(string.Empty, ex.Message);
+            var viewModel = new LoginViewModel()
+            {
+                UserName = command.UserName,
+            };
+
+            return View(viewModel);
+        }
 
         return RedirectToAction("Index", controllerName: "Home");
     }
