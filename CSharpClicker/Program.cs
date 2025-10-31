@@ -1,3 +1,4 @@
+using CSharpClicker.Infrastructure.Abstractions;
 using CSharpClicker.Infrastructure.Implementations;
 using CSharpClicker.Intitialization;
 using MediatR;
@@ -17,6 +18,7 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 app.MapDefaultControllerRoute();
@@ -30,6 +32,8 @@ void ConfigureServices(IServiceCollection services)
     IdentityInitializer.Initialize(builder.Services);
     DbContextInitializer.InitializeDbContext(builder.Services);
 
+    services.AddScoped<ICurrentUserIdAccessor, CurrentUserIdAccessor>();
+    services.AddScoped<IAppDbContext, AppDbContext>();
     services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme);
     services.ConfigureApplicationCookie(opt =>
     {
@@ -37,6 +41,7 @@ void ConfigureServices(IServiceCollection services)
         opt.LogoutPath = "/auth/logout";
     });
 
+    services.AddAutoMapper(typeof(Program).Assembly);
     services.AddMediatR(typeof(Program).Assembly);
     services.AddSwaggerGen();
     services.AddControllersWithViews();

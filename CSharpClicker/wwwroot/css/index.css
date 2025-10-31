@@ -1,0 +1,23 @@
+﻿#click-item {
+    background-image: url(../images/goldMine.png);
+    width: 200px;
+    height: 200px;
+    background-repeat: no-repeat;
+}
+
+#stats {
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+#boosts {
+    position: fixed;
+    right: 0;
+}
+
+#greeting {
+    position: fixed;
+    top: 0;
+    left: 50%;
+}

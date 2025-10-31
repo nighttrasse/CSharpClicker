@@ -1,0 +1,44 @@
+﻿@model IndexViewModel
+
+@section styles{
+	<link href="~/css/index.css" rel="stylesheet">
+}
+
+
+<div id="stats">
+	<span>Ты добываешь @Model.UserInfo.ProfitPerClick золота с одного удара</span>
+	<span>Твои крестьяне добывают @Model.UserInfo.ProfitPerSecond золота в секунду</span>
+</div>
+
+<div id="boosts">
+	@foreach (var boost in Model.Boosts)
+	{
+		var userBoost = Model.UserInfo.UserBoosts.FirstOrDefault(ub => ub.BoostId == boost.Id);
+
+		<div>
+			<button>
+				Купить
+			</button>
+			<h4>@boost.Name</h4>
+			<h4>
+				@(userBoost != null 
+				    ? userBoost.CurrentPrice
+				    : boost.Price) Цена
+			</h4>
+			<h4>
+				@(userBoost != null
+				    ? userBoost.Quantity
+				    : 0) Приобретено
+			</h4>
+		</div>
+	}
+</div>
+
+<div id="greeting">
+	<h2>Приветствуем тебя, @Model.UserInfo.UserName</h2>
+</div>
+
+<div class="d-flex justify-content-center align-items-center vh-100">
+	<button id="click-item">
+	</button>
+</div>
