@@ -1,23 +1,98 @@
 ﻿#click-item {
     background-image: url(../images/goldMine.png);
-    width: 200px;
-    height: 200px;
+    width: 300px;
+    height: 300px;
     background-repeat: no-repeat;
+    border-width: 0px;
+    background-position: center;
+    background-size: cover;
+    border-radius: 50%;
+}
+
+#click-item:hover {
+    cursor: url(../images/pickaxe.cur), pointer;
+    opacity: 0.7;
+}
+
+.card {
+    background-color: lightblue;
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,.15);
+}
+
+/* Boosts layout */
+.wrapper {
+    display: grid;
+    /* Responsive columns */
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+}
+
+/* Individual boost card styling */
+.boost-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 12px;
+    background: #ffffff;
+    border: 1px solid #c3d8e6;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.12);
+    font-size: 14px;
+}
+
+.boost-item img {
+    width: 96px;
+    height: 96px;
+    object-fit: contain;
+    border-radius: 8px;
+    background: #f2f8fc;
+}
+
+.boost-item button {
+    width: 100%;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 6px;
+    background: #1976d2;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.boost-item button:hover {
+    background: #115599;
+}
+
+.boost-item .boost-profit {
+    margin: 0;
+    font-weight: 600;
+    color: #0d4f6e;
+}
+
+.boost-item .boost-price,
+.boost-item .boost-quantity {
+    margin: 0;
 }
 
 #stats {
     position: fixed;
-    left: 0;
-    top: 0;
+    left: 5%;
+    top: 5%;
 }
 
 #boosts {
     position: fixed;
-    right: 0;
+    top: 5%;
+    right: 5%;
+    max-width: 760px;
 }
 
 #greeting {
     position: fixed;
-    top: 0;
+    top: 5%;
     left: 50%;
+    transform: translateX(-50%);
 }

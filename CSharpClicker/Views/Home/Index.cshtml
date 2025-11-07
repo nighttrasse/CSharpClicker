@@ -5,37 +5,44 @@
 }
 
 
-<div id="stats">
-	<span>Ты добываешь @Model.UserInfo.ProfitPerClick золота с одного удара</span>
-	<span>Твои крестьяне добывают @Model.UserInfo.ProfitPerSecond золота в секунду</span>
+<div id="stats" class="card">
+	<h5>Ты добываешь @Model.UserInfo.ProfitPerClick золота с одного удара</h5>
+	<h5>Твои крестьяне добывают @Model.UserInfo.ProfitPerSecond золота в секунду</h5>
 </div>
 
-<div id="boosts">
-	@foreach (var boost in Model.Boosts)
-	{
-		var userBoost = Model.UserInfo.UserBoosts.FirstOrDefault(ub => ub.BoostId == boost.Id);
+<div id="boosts" class="card">
+	<h3>Улучшения:</h3>
+	<div class="wrapper">
+		@foreach (var boost in Model.Boosts)
+		{
+			var userBoost = Model.UserInfo.UserBoosts.FirstOrDefault(ub => ub.BoostId == boost.Id);
+			var imgSrc = $"data:image/png;base64,{Convert.ToBase64String(boost.Image)}";
 
-		<div>
-			<button>
-				Купить
-			</button>
-			<h4>@boost.Name</h4>
-			<h4>
-				@(userBoost != null 
-				    ? userBoost.CurrentPrice
-				    : boost.Price) Цена
-			</h4>
-			<h4>
-				@(userBoost != null
-				    ? userBoost.Quantity
-				    : 0) Приобретено
-			</h4>
-		</div>
-	}
+			<div class="boost-item">
+				<img src="@imgSrc" />
+				<button>
+					Купить
+				</button>
+				<h4>@boost.Name</h4>
+				<h4>
+					@(userBoost != null
+									? userBoost.CurrentPrice
+									: boost.Price) Цена
+								  			</h4>
+								  			<h4>
+					@(userBoost != null
+									? userBoost.Quantity
+									: 0) Приобретено
+		    	</h4>
+		    </div>
+	    }
+	</div>
 </div>
 
-<div id="greeting">
+<div id="greeting" class="d-flex d-column align-items-center card">
 	<h2>Приветствуем тебя, @Model.UserInfo.UserName</h2>
+	<h4>У тебя есть <span id="currentScore">@Model.UserInfo.CurrentScore</span> золота</h4>
+	<h4>Всего ты добыл <span id="recordScore">@Model.UserInfo.RecordScore</span> золота</h4>
 </div>
 
 <div class="d-flex justify-content-center align-items-center vh-100">
