@@ -4,15 +4,18 @@
 	<link href="~/css/index.css" rel="stylesheet">
 }
 
+@section scripts{
+	<script src="~/js/index.js"></script>
+}
+
 
 <div id="stats" class="card">
 	<h5>Ты добываешь @Model.UserInfo.ProfitPerClick золота с одного удара</h5>
 	<h5>Твои крестьяне добывают @Model.UserInfo.ProfitPerSecond золота в секунду</h5>
 </div>
 
-<div id="boosts" class="card">
+<div id="boosts" class="card wrapper">
 	<h3>Улучшения:</h3>
-	<div class="wrapper">
 		@foreach (var boost in Model.Boosts)
 		{
 			var userBoost = Model.UserInfo.UserBoosts.FirstOrDefault(ub => ub.BoostId == boost.Id);
@@ -36,7 +39,6 @@
 		    	</h4>
 		    </div>
 	    }
-	</div>
 </div>
 
 <div id="greeting" class="d-flex d-column align-items-center card">

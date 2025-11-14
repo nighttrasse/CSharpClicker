@@ -24,17 +24,14 @@
 /* Boosts layout */
 .wrapper {
     display: grid;
-    /* Responsive columns */
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 16px;
+    grid-template-columns: 1fr, 1fr, 1fr;
 }
 
 /* Individual boost card styling */
 .boost-item {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 6px;
+    flex-wrap: wrap;
     padding: 12px;
     background: #ffffff;
     border: 1px solid #c3d8e6;
@@ -87,7 +84,6 @@
     position: fixed;
     top: 5%;
     right: 5%;
-    max-width: 760px;
 }
 
 #greeting {

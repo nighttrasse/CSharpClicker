@@ -11,6 +11,10 @@
     <h2>@ViewBag.Title</h2>
     <div>
         @RenderBody()
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/9.0.6/signalr.js"></script>
+
+        @await RenderSectionAsync("scripts", required: false);
     </div>
 </body> 
 </html>

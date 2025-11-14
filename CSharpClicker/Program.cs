@@ -1,3 +1,4 @@
+using CSharpClicker.Hubs;
 using CSharpClicker.Infrastructure.Abstractions;
 using CSharpClicker.Infrastructure.Implementations;
 using CSharpClicker.Intitialization;
@@ -22,6 +23,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 app.MapDefaultControllerRoute();
+app.MapHub<ClickerHub>("/clickerHub");
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseStaticFiles();
@@ -34,6 +36,7 @@ void ConfigureServices(IServiceCollection services)
 
     services.AddScoped<ICurrentUserIdAccessor, CurrentUserIdAccessor>();
     services.AddScoped<IAppDbContext, AppDbContext>();
+    services.AddScoped<IScoreNotificationService, ScoreNotificationService>();
     services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme);
     services.ConfigureApplicationCookie(opt =>
     {
@@ -45,4 +48,5 @@ void ConfigureServices(IServiceCollection services)
     services.AddMediatR(typeof(Program).Assembly);
     services.AddSwaggerGen();
     services.AddControllersWithViews();
+    services.AddSignalR();
 }
