@@ -32,6 +32,7 @@ public class GetCurrentUserInfoQueryHandler : IRequestHandler<GetCurrentUserInfo
 
         var user = await appDbContext.Users
             .Include(u => u.UserBoosts)
+            .ThenInclude(ub => ub.Boost)
             .FirstAsync(u => u.Id == userId);
 
         var userDto = mapper.Map<UserInfoDto>(user);

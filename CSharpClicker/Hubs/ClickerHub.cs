@@ -1,4 +1,5 @@
-﻿using CSharpClicker.UseCases.RegisterClicks;
+﻿using CSharpClicker.UseCases.BuyBoost;
+using CSharpClicker.UseCases.RegisterClicks;
 using MediatR;
 using Microsoft.AspNetCore.SignalR;
 
@@ -15,6 +16,9 @@ public class ClickerHub : Hub
 
     public async Task RegisterClicks(int clickCount)
         => await mediator.Send(new RegisterClicksCommand(clickCount));
+
+    public async Task BuyBoost(int boostId)
+        => await mediator.Send(new BuyBoostCommand(boostId));
 
     public async Task ScoreUpdated(Guid userId, long current, long record, CancellationToken cancellationToken)
         => await Clients.User(userId.ToString()).SendAsync("ScoreUpdated", current, record, cancellationToken);

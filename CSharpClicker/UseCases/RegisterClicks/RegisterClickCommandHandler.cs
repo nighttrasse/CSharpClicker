@@ -25,6 +25,7 @@ public class RegisterClickCommandHandler : IRequestHandler<RegisterClicksCommand
         var currentUserId = currentUserIdAccessor.GetCurrentUserId();
         var currentUser = await appDbContext.Users
             .Include(u => u.UserBoosts)
+            .ThenInclude(ub => ub.Boost)
             .FirstAsync(u => u.Id == currentUserId);
         
         var scoreToAdd = request.ClickCount * currentUser.UserBoosts.GetProfitPerClick();
