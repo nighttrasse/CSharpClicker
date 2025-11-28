@@ -1,3 +1,4 @@
+using CSharpClicker.BackgroundServices;
 using CSharpClicker.Hubs;
 using CSharpClicker.Infrastructure.Abstractions;
 using CSharpClicker.Infrastructure.Implementations;
@@ -34,9 +35,12 @@ void ConfigureServices(IServiceCollection services)
     IdentityInitializer.Initialize(builder.Services);
     DbContextInitializer.InitializeDbContext(builder.Services);
 
+    services.AddSingleton<IConnectedUsersRegistry, ConnectedUsersRegistry>();
     services.AddScoped<ICurrentUserIdAccessor, CurrentUserIdAccessor>();
     services.AddScoped<IAppDbContext, AppDbContext>();
     services.AddScoped<IScoreNotificationService, ScoreNotificationService>();
+    services.AddHostedService<AutoProfitService>();
+
     services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme);
     services.ConfigureApplicationCookie(opt =>
     {

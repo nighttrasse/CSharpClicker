@@ -14,8 +14,9 @@
 	<h5>Твои крестьяне добывают <span id="profitPerSecond">@Model.UserInfo.ProfitPerSecond</span> золота в секунду</h5>
 </div>
 
-<div id="boosts" class="card wrapper">
+<div id="boosts" class="card">
 	<h3>Улучшения:</h3>
+	<div class="wrapper">
 		@foreach (var boost in Model.Boosts)
 		{
 			var userBoost = Model.UserInfo.UserBoosts.FirstOrDefault(ub => ub.BoostId == boost.Id);
@@ -26,25 +27,34 @@
 				<button class="buy-boost-button">
 					Купить
 				</button>
-				<h4>@boost.Name</h4>
-				<h4>
+				<h6>@boost.Title</h6>
+				<h6>
+					Стоит
 					<span data-boost-price>
-					    @(userBoost != null
-							? userBoost.CurrentPrice
-							: boost.Price)
+						@(userBoost != null
+											? userBoost.CurrentPrice
+											: boost.Price)
 					</span>
-				    Цена
-			    </h4>
-				<h4>
+					Золота
+				</h6>
+				<h6>
+					Куплено
 					<span data-boost-quantity>
-					    @(userBoost != null
-				            ? userBoost.Quantity
-				            : 0)
+						@(userBoost != null
+											? userBoost.Quantity
+											: 0)
 					</span>
-				    Приобретено
-		    	</h4>
-		    </div>
-	    }
+					Штук
+				</h6>
+				<h6>
+					Дает 
+					<span>@boost.Profit</span>
+					Золота
+					<span>@(boost.IsAuto ? "в секунду" : "за клик")</span>
+				</h6>
+			</div>
+		}
+	</div>
 </div>
 
 <div id="greeting" class="d-flex d-column align-items-center card">

@@ -4,7 +4,7 @@ public class BoostDto
 {
 	public int Id { get; init; }
 
-	public string Name { get; init; }
+	public string Title { get; init; }
 
 	public long Price { get; set; }
 
