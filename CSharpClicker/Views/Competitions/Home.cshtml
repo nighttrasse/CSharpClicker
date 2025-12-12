@@ -1,0 +1,26 @@
+﻿@model CompetitionsViewModel
+@{
+    ViewBag.Title = "Соревнования";
+}
+
+<div>
+    @{
+        var pendingInvitations = Model.CompetitionInvitations
+            .Where(ci => ci.ToUser.Id == Model.CurrentUserId && ci.IsAccepted == null)
+            .ToArray();
+        var sentInvitations = Model.CompetitionInvitations
+            .Where(ci => ci.FromUser.Id == Model.CurrentUserId)
+            .ToArray();
+        var receivedInvitations = Model.CompetitionInvitations
+            .Where(ci => ci.ToUser.Id == Model.CurrentUserId && ci.IsAccepted != null)
+            .ToArray();
+
+        var ongoingCompetitions = Model.Competitions.Where(c => c.EndTime == null).ToList();
+        var finishedCompetitions = Model.Competitions.Where(c => c.EndTime != null).ToList();
+    }
+
+    <h2>
+        Приглашения
+    </h2>
+    <h2>Ожидающие приглашения</h2>
+</div>
