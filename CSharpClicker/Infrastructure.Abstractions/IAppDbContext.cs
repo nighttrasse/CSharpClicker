@@ -11,9 +11,5 @@ public interface IAppDbContext
 
     public DbSet<UserBoost> UserBoosts { get; set; }
 
-    public DbSet<Competition> Competitions { get; set; }
-
-    public DbSet<CompetitionInvitation> CompetitionInvitations { get; set; }
-
     public DbSet<ApplicationUser> Users { get; set; }
 }
